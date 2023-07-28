@@ -1,0 +1,9 @@
+name: react-php-test
+services:
+    appserver:
+        type: php:8.1
+        via: apache:2.4
+        webroot: .
+proxy:
+    appserver:
+        - react-php-test.lndo.site
