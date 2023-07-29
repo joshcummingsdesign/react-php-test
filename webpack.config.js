@@ -5,8 +5,12 @@ const isProduction = process.env.NODE_ENV === 'production';
 
 module.exports = {
     mode: isProduction ? 'production' : 'development',
-    entry: path.join(__dirname, 'src', 'index.tsx'),
+    entry: {
+        client: path.join(__dirname, 'src', 'client', 'index.tsx'),
+        server: path.join(__dirname, 'src', 'server', 'index.ts'),
+    },
     output: {
+        filename: '[name].js',
         path: path.resolve(__dirname, 'build'),
     },
     module: {
@@ -37,6 +41,9 @@ module.exports = {
             '@': path.resolve(__dirname, 'src'),
         },
         extensions: ['.tsx', '.ts', '.js'],
+    },
+    optimization: {
+        runtimeChunk: 'single',
     },
     plugins: [!isProduction && new ReactRefreshWebpackPlugin()].filter(Boolean),
     devServer: {
